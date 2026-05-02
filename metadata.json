@@ -1,0 +1,6 @@
+{
+  "name": "HandRub Tracker",
+  "description": "Hospital ward alcohol hand rub usage tracking system with real-time usage analytics, expiration alerts, and standard compliance monitoring.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

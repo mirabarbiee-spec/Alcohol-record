@@ -1,0 +1,56 @@
+{
+  "entities": {
+    "stations": {
+      "title": "Alcohol Hand Rub Station",
+      "description": "Represents a dispensing station in a ward.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Location name of the station" },
+        "areaType": { "type": "string", "description": "Type of area (e.g., patient room, nurse station)" },
+        "expirationDate": { "type": "string", "format": "date", "description": "Expiration date of the current bottle" },
+        "currentVolume": { "type": "number", "description": "Current volume in ml" },
+        "initialVolume": { "type": "number", "description": "Initial volume when replaced (standard 500ml)" },
+        "updatedAt": { "type": "string", "format": "date-time" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "areaType", "expirationDate", "currentVolume"]
+    },
+    "usageLogs": {
+      "title": "Usage Log Entry",
+      "description": "Records the remaining volume and calculates usage.",
+      "type": "object",
+      "properties": {
+        "stationId": { "type": "string" },
+        "previousVolume": { "type": "number" },
+        "currentVolume": { "type": "number" },
+        "usageAmount": { "type": "number", "description": "Calculated usage (previous - current)" },
+        "recordedAt": { "type": "string", "format": "date-time" },
+        "recordedBy": { "type": "string" }
+      },
+      "required": ["stationId", "currentVolume", "recordedAt"]
+    },
+    "settings": {
+      "title": "Ward Settings",
+      "description": "Ward-level metrics like patient days.",
+      "type": "object",
+      "properties": {
+        "patientDays": { "type": "number", "description": "Total patient days in the period" },
+        "period": { "type": "string", "description": "e.g., '2026-05'" }
+      }
+    }
+  },
+  "firestore": {
+    "/stations": {
+      "schema": "stations",
+      "description": "List of all hand rub stations"
+    },
+    "/stations/{stationId}/logs": {
+      "schema": "usageLogs",
+      "description": "History of volume checks for a specific station"
+    },
+    "/wardSettings": {
+      "schema": "settings",
+      "description": "Global settings/metrics for the ward"
+    }
+  }
+}
